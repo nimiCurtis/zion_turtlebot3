@@ -1,3 +1,30 @@
+<?xml version="1.0"?>
+
 <launch>
-  <include file="$(find realsense_camera)/launch/r200_nodelet_default.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/turtlebot3_robot.launch"/>
+  
+  
+  <arg name="use_rviz" default="false"/>
+  <include file="$(find turtlebot_bringup)/launch/turtlebot3_zed_model.launch">
+    <arg name="use_rviz" default="$(arg use_rviz)"/>
+  </include>
+
+  <arg name="node_name"            default="zed_node" />
+  <arg name="camera_model"         default="zedm" /> <!-- 'zed' or 'zedm' -->
+  <arg name="camera_name"          default="zedm" />
+  <arg name="base_frame"           default="base_footprint" />
+  <arg name="publish_urdf"         default="false" />
+
+  <include file="$(find zion_zed_ros_interface)/launch/zed_operate.launch">
+    <arg name="node_name"           value="$(arg node_name)" />
+    <arg name="camera_name"         value="$(arg camera_name)" />
+    <arg name="camera_model"        value="$(arg camera_model)" />
+    <arg name="base_frame"          value="$(arg base_frame)" />
+    <arg name="publish_urdf"          value="$(arg publish_urdf)" />    
+  </include>
+
+  <include file="$(find turtlebot_localization)/launch/ekf.launch">
+
+  </include>
+
 </launch>

@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="turtlebot3_burger" xmlns:xacro="http://ros.org/wiki/xacro">
+
   <xacro:include filename="$(find turtlebot_description)/urdf/common_properties.xacro"/>
   <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot3_burger.gazebo.xacro"/>
 
@@ -10,6 +11,12 @@
     <child link="base_link"/>
     <origin xyz="0.0 0.0 0.010" rpy="0 0 0"/>
   </joint>
+<!-- 
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 -0.010" rpy="0 0 0"/>
+  </joint> -->
 
   <link name="base_link">
     <visual>
@@ -131,7 +138,7 @@
 
   <link name="imu_link"/>
 
-  <joint name="scan_joint" type="fixed">
+  <!-- <joint name="scan_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_scan"/>
     <origin xyz="-0.032 0 0.172" rpy="0 0 0"/>
@@ -160,6 +167,7 @@
                iyy="0.001" iyz="0.0"
                izz="0.001" />
     </inertial>
-  </link>
+  </link> -->
+
 
 </robot>
