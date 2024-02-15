@@ -23,8 +23,7 @@
     <arg name="publish_urdf"          value="$(arg publish_urdf)" />    
   </include>
 
-  <include file="$(find turtlebot_localization)/launch/ekf.launch">
-
-  </include>
+  <!-- <include file="$(find turtlebot_localization)/launch/ekf.launch">
+  </include> -->
 
 </launch>

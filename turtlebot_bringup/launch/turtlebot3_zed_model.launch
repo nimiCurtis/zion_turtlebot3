@@ -8,13 +8,8 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
     <param name="publish_frequency" type="double" value="50.0" />
   </node>
-  
-  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
-    <param name="use_gui" value="false"/>
-    <param name="rate" value="50"/>
-  </node>
 
-  <arg name="rvizconfig" default="$(find turtlebot_description)/rviz/burger_zed.rviz" />
+  <arg name="rvizconfig" default="$(find turtlebot_bringup)/rviz/burger_zed.rviz" />
 
   <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz"   args="-d $(arg rvizconfig)"/>
 

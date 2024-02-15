@@ -26,44 +26,63 @@
   <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot3_burger.urdf.xacro" />
 
   <!-- Add one ZED Camera -->
-  <xacro:include filename="$(find zed_wrapper)/urdf/zed_macro.urdf.xacro" />
-  <xacro:zed_camera name="$(arg camera_name)" model="$(arg camera_model)"/>
+  <!-- <xacro:include filename="$(find zed_wrapper)/urdf/zed_macro1.urdf.xacro" />
+  <xacro:zed_camera name="$(arg camera_name)" model="$(arg camera_model)"/> -->
 
-  <link name="$(arg camera_name)_base_link">
+  <link name="$(arg camera_name)_camera_link">
   </link>
 
-  <joint name="$(arg camera_name)_base_joint" type="fixed">
-      <parent link="$(arg camera_name)_base_link"/>
+  <xacro:arg name="cam_pos_x"     default="0.032" />
+  <xacro:arg name="cam_pos_y"     default="-0.03" />
+  <xacro:arg name="cam_pos_z"     default="0.180" />
+  <xacro:arg name="cam_roll"      default="0.0" />
+  <xacro:arg name="cam_pitch"     default="0.7854" />
+  <xacro:arg name="cam_yaw"       default="0.0" />
+  <xacro:arg name="gnss_frame"    default="" />
+
+  <xacro:include filename="$(find zed_wrapper)/urdf/zed_macro.urdf.xacro" />
+  <xacro:zed_camera name="$(arg camera_name)" model="$(arg camera_model)" parent="$(arg camera_name)_camera_link">
+    <origin 
+        xyz="0 0 0"
+        rpy="0 $(arg cam_pitch) 0"
+    />
+  </xacro:zed_camera>
+
+  <joint name="$(arg camera_name)_camera_joint" type="fixed">
+      <parent link="$(arg base_frame)"/>
       <child link="$(arg camera_name)_camera_link"/>
       <origin
-        xyz="0 0.0 0"
-        rpy="0 0.7854 0"
+        xyz="$(arg cam_pos_x) $(arg cam_pos_y) $(arg cam_pos_z)" 
+        rpy="$(arg cam_roll) 0 $(arg cam_yaw)"
       />
   </joint>
 
   <!-- Add a joint to connect the ZED Camera to the robot -->
-  <xacro:if value="$(arg use_zed_localization)">
+  <!-- <xacro:if value="$(arg use_zed_localization)"> -->
     <!-- ZED Localization -> The reference link is '$(arg camera_name)_camera_link' and 'base_link' is a child -->
-    <joint name="$(arg camera_name)_joint" type="fixed">
+    <!-- <joint name="$(arg camera_name)_joint" type="fixed">
       <parent link="$(arg camera_name)_base_link"/>
       <child link="$(arg base_frame)"/>
       <origin
-        xyz="-0.032 0.0 -0.170"
+        xyz="-0.032 0.0 -0.180"
         rpy="0 0 0"
       />
     </joint>
   </xacro:if>
-  <xacro:unless value="$(arg use_zed_localization)">
+  <xacro:unless value="$(arg use_zed_localization)"> -->
     <!-- NO ZED Localization -> '$(arg camera_name)_camera_link' is a child of 'base_link' -->
-    <joint name="$(arg camera_name)_joint" type="fixed">
+    <!-- <joint name="$(arg camera_name)_joint" type="fixed">
       <parent link="$(arg base_frame)"/>
       <child link="$(arg camera_name)_base_link"/>
       <origin
-        xyz="0.032 -0.03 0.170"
+        xyz="0.032 -0.03 0.180"
         rpy="0 0 0"
       />
     </joint>
-  </xacro:unless>
+  </xacro:unless> -->
   <!-- </xacro:zed_camera> -->
   
+
+
+
 </robot>
