@@ -1,0 +1,12 @@
+<launch>
+    <arg name="model" default="burger_zed" doc="model type [burger_zed]"/>
+    <arg name="robot" default="turtlebot"/>
+
+    <group ns="$(arg robot)">
+        <include file="$(find turtlebot_bringup)/launch/turtlebot3_remote.launch">
+            <arg name="model" value="$(arg model)"/>
+        </include>
+    </group>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_gazebo)/rviz/turtlebot3_zed_gazebo_model.rviz"/>
+</launch>

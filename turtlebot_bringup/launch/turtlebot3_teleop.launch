@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    
+    <arg name ="robot" default = "turtlebot"/>
+    <group ns="$(arg robot)">
+
+        <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch">
+            <!-- <remap from="/cmd_vel" to="$(arg robot)/cmd_vel"/> -->
+        </include>
+    </group>
+
+</launch>

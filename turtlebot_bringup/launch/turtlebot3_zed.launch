@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 
 <launch>
-  <include file="$(find turtlebot_bringup)/launch/turtlebot3_robot.launch"/>
+
+  <arg name ="robot" default = "turtlebot"/>
   
+  <group ns="$(arg robot)">
+    <include file="$(find turtlebot_bringup)/launch/turtlebot3_robot.launch"/>
   
-  <arg name="use_rviz" default="false"/>
-  <include file="$(find turtlebot_bringup)/launch/turtlebot3_zed_model.launch">
-    <arg name="use_rviz" default="$(arg use_rviz)"/>
-  </include>
+    <arg name="use_rviz" default="false"/>
+    <include file="$(find turtlebot_bringup)/launch/turtlebot3_zed_model.launch">
+      <arg name="use_rviz" default="$(arg use_rviz)"/>
+    </include>
+  </group>
 
   <arg name="node_name"            default="zed_node" />
   <arg name="camera_model"         default="zedm" /> <!-- 'zed' or 'zedm' -->
