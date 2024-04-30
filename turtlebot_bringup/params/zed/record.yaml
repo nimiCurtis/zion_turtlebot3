@@ -1,36 +1,27 @@
-
 topics:
   tf_static: /tf_static
   tf: /tf
-  imu: /turtlebot/imu # /zedm/zed_node/imu/data
+  imu: /zedm/zed_node/imu/data
   rgb: /zedm/zed_node/rgb/image_rect_color #/compressed
   # depth: /zedm/zed_node/depth/depth_registered/compressedDepth
   depth: /zedm/zed_node/depth/depth_registered
   pcl: /zedm/zed_node/point_cloud/cloud_registered
   pose: /zedm/zed_node/pose_with_covariance
-  odom:  /turtlebot/odom #/zedm/zed_node/odom
-  cmd_vel: /turtlebot/cmd_vel
-  joint_states: /turtlebot/joint_states
+  odom: /zedm/zed_node/odom
   target_object: /obj_detect_publisher_node/object
 
 recording:
   script: record_zed.sh
-  demonstrator: turtlebot
+  demonstrator: nimrod
   prefix: bag_batch 
-  bag_folder: /media/roblab20/Expansion/pilot/turtlebot_bags 
-  # ../../bag # Relative path to the parent bag folder 
+  bag_folder: ../../bag # Relative path to the parent bag folder 
   topics_to_rec:
     # - tf
     # - tf_static
     - rgb
     - depth
     - odom
-    - imu
-    # - cmd_vel
-    - joint_states
     - target_object
-
-
-
+    # - imu
 
 

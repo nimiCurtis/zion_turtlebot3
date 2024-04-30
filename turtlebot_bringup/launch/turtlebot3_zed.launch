@@ -18,13 +18,15 @@
   <arg name="camera_name"          default="zedm" />
   <arg name="base_frame"           default="base_footprint" />
   <arg name="publish_urdf"         default="false" />
+  <arg name="publish_obj_det"     default="true" />
 
   <include file="$(find turtlebot_bringup)/launch/zed_operate.launch">
     <arg name="node_name"           value="$(arg node_name)" />
     <arg name="camera_name"         value="$(arg camera_name)" />
     <arg name="camera_model"        value="$(arg camera_model)" />
     <arg name="base_frame"          value="$(arg base_frame)" />
-    <arg name="publish_urdf"          value="$(arg publish_urdf)" />    
+    <arg name="publish_urdf"          value="$(arg publish_urdf)" />
+    <arg name="publish_obj_det"     default="$(arg publish_obj_det)" />
   </include>
 
   <!-- <include file="$(find turtlebot_localization)/launch/ekf.launch">
