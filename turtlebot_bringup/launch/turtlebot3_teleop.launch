@@ -4,13 +4,37 @@
 
     
     <arg name ="robot" default = "turtlebot"/>
+    <arg name ="joy" default = "false"/>
+    
     <group ns="$(arg robot)">
-
-        <node pkg="turtlebot_bringup" type="turtlebot3_teleop_key.py" name="turtlebot3_teleop_keyboard"  output="screen">
-        </node>
-        <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"> -->
+        <!-- Key Teleop group included only when joy is not true -->
+        <group unless="$(eval arg('joy') == 'true')">
+            <node pkg="turtlebot_bringup" type="turtlebot3_teleop_key.py" name="turtlebot3_teleop_keyboard" output="screen">
+            </node>
+            <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"> -->
             <!-- <remap from="/cmd_vel" to="$(arg robot)/cmd_vel"/> -->
-        <!-- </include> -->
+            <!-- </include> -->
+        </group>
+
+        <!-- Joy Teleop group included only when joy is true -->
+        <group if="$(arg joy)">
+            <!-- Joy args -->
+            <arg name="joy_config" default="xbox" />
+            <arg name="joy_dev" default="/dev/input/js0" />
+            
+            <!-- Joy node -->
+            <node pkg="joy" type="joy_node" name="joy_node">
+                <param name="dev" value="$(arg joy_dev)" />
+                <param name="deadzone" value="0.3" />
+                <param name="autorepeat_rate" value="20" />
+            </node>
+
+            <!-- Joy commands to Twist msgs -->
+            <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+                <!-- <rosparam command="load" file="$(find teleop_twist_joy)/config/$(arg joy_config).config.yaml" /> -->
+                <rosparam command="load" file="$(find turtlebot_bringup)/params/teleop/turtlebot3_joy.yaml" />
+            </node>
+        </group>
     </group>
 
 </launch>
